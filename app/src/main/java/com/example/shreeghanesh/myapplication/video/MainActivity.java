@@ -20,7 +20,6 @@ public class MainActivity extends BaseActivity {
         videoResponseViewModel = ViewModelProviders.of(this).get(VideoResponseViewModel.class);
         activityMainBinding.setViewModel(videoResponseViewModel);
         this.getLifecycle().addObserver(videoResponseViewModel);
-        activityMainBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         videoResponseViewModel.getActivityNavigationUseCaseMutableLiveData().observe(this, this::handleResponse);
     }
 

@@ -28,6 +28,7 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     public final ObservableField<String> imageUrl = new ObservableField<>();
     public final ObservableField<String> buttonText = new ObservableField<>("Like");
     public final ObservableField<String> subscribeStatus = new ObservableField<>("SUBSCRIBE");
+    public final ObservableField<String> userComments = new ObservableField<>("");
     private boolean isButtonEnabled = true;
     private Disposable disposable;
     private DataProviders dataProviders = new DataProviders();
@@ -68,7 +69,7 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     }
 
     private void getAllPhotos() {
-        disposable = VideoModule.getVideoApiService().getAllPhotos()
+        disposable = VideoModule.getVideoApiService().getAllVideoDetails()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSuccess, Throwable::printStackTrace);
@@ -78,6 +79,19 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
         imageUrl.set(videoApiResponse.getImage());
         views.set(videoApiResponse.getViews());
         channelName.set(videoApiResponse.getChannel());
+    }
+
+    public void setUserComment(CharSequence comment) {
+        userComments.set(comment.toString());
+    }
+
+    public void postUserComment() {
+        //TODO : Handle UserName Field
+        VideoModule.getVideoApiService().postComment("", userComments.get()).subscribe(this::onSuccess, this::onError);
+    }
+
+    private void onSuccess(List<Comment> comments) {
+        //TODO: Handle Success
     }
 
     public void navigateToChannelPage() {
