@@ -17,6 +17,7 @@ import com.example.shreeghanesh.myapplication.networking.networkModule.VideoModu
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
@@ -46,6 +47,7 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     private void getListOfComments() {
         VideoModule.getVideoApiService().getListOfComments()
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSuccessOfRetrieveComments, this::onError);
     }
 
@@ -65,6 +67,7 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     private void getAllPhotos() {
         disposable = VideoModule.getVideoApiService().getAllPhotos()
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSuccess, Throwable::printStackTrace);
     }
 
