@@ -14,6 +14,7 @@ import com.example.shreeghanesh.myapplication.networking.models.Comment;
 import com.example.shreeghanesh.myapplication.networking.models.VideoApiResponse;
 import com.example.shreeghanesh.myapplication.networking.networkModule.VideoModule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.disposables.Disposable;
@@ -29,6 +30,8 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     private boolean isButtonEnabled = true;
     private Disposable disposable;
     private DataProviders dataProviders = new DataProviders();
+    private List<CommentItemViewModel> commentItemViewModels;
+    private CommentsRecyclerAdapter commentsRecyclerAdapter;
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate() {
@@ -51,7 +54,12 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     }
 
     private void onSuccessOfRetrieveComments(List<Comment> comments) {
-        //TODO: To be populated in recyclerView
+        commentItemViewModels = new ArrayList<>();
+        for (Comment comment : comments) {
+            commentItemViewModels.add(new CommentItemViewModel(comment.getComment()));
+        }
+        commentsRecyclerAdapter = new CommentsRecyclerAdapter();
+        commentsRecyclerAdapter.setCommentItemViewModels(commentItemViewModels);
     }
 
     private void getAllPhotos() {
