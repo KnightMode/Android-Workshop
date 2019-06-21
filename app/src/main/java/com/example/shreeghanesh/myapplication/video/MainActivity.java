@@ -3,6 +3,7 @@ package com.example.shreeghanesh.myapplication.video;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.example.shreeghanesh.myapplication.basecomponents.BaseActivity;
 import com.example.shreeghanesh.myapplication.R;
@@ -19,7 +20,8 @@ public class MainActivity extends BaseActivity {
         videoResponseViewModel = ViewModelProviders.of(this).get(VideoResponseViewModel.class);
         activityMainBinding.setViewModel(videoResponseViewModel);
         this.getLifecycle().addObserver(videoResponseViewModel);
-        videoResponseViewModel.getActivityNavigationUseCaseMutableLiveData().observe(this,this::handleResponse);
+        activityMainBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        videoResponseViewModel.getActivityNavigationUseCaseMutableLiveData().observe(this, this::handleResponse);
     }
 
 }
