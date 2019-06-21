@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="views_field">Views: </string>
+    <string name="channel_name">Channel Name:</string>
+    <string name="like">LIKE</string>
+    <string name="channel_link">CHANNEL LINK</string>
+    <string name="channel_details_page">CHANNEL DETAILS PAGE</string>
+</resources>
