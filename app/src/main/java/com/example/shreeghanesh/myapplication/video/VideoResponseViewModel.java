@@ -31,17 +31,21 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     private boolean isButtonEnabled = true;
     private Disposable disposable;
     private DataProviders dataProviders = new DataProviders();
-    private List<CommentItemViewModel> commentItemViewModels;
     private CommentsRecyclerAdapter commentsRecyclerAdapter;
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate() {
+        commentsRecyclerAdapter = new CommentsRecyclerAdapter();
         if (dataProviders.containsUseCase(ChannelDetailsUseCase.class)) {
             ChannelDetailsUseCase channelDetailsUseCase = dataProviders.get(ChannelDetailsUseCase.class);
             subscribeStatus.set(channelDetailsUseCase.isSubscribed() ? "UNSUBSCRIBE" : "SUBSCRIBE");
         }
         getAllPhotos();
         getListOfComments();
+    }
+
+    public CommentsRecyclerAdapter getCommentsRecyclerAdapter() {
+        return commentsRecyclerAdapter;
     }
 
     private void getListOfComments() {
@@ -56,11 +60,10 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     }
 
     private void onSuccessOfRetrieveComments(List<Comment> comments) {
-        commentItemViewModels = new ArrayList<>();
+        List<CommentItemViewModel> commentItemViewModels = new ArrayList<>();
         for (Comment comment : comments) {
             commentItemViewModels.add(new CommentItemViewModel(comment.getComment()));
         }
-        commentsRecyclerAdapter = new CommentsRecyclerAdapter();
         commentsRecyclerAdapter.setCommentItemViewModels(commentItemViewModels);
     }
 
