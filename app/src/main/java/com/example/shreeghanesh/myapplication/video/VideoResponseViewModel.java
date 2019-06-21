@@ -32,18 +32,22 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     public final ObservableField<String> userComments = new ObservableField<>("");
     private boolean isButtonEnabled = true;
     private Disposable disposable;
-    private DataProviders dataProviders = new DataProviders();
+    private DataProviders dataProviders = DataProviders.getDataProviderInstance();
     private CommentsRecyclerAdapter commentsRecyclerAdapter;
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate() {
         commentsRecyclerAdapter = new CommentsRecyclerAdapter();
-        if (dataProviders.containsUseCase(ChannelDetailsUseCase.class)) {
-            ChannelDetailsUseCase channelDetailsUseCase = dataProviders.get(ChannelDetailsUseCase.class);
-            subscribeStatus.set(channelDetailsUseCase.isSubscribed() ? "UNSUBSCRIBE" : "SUBSCRIBE");
-        }
         getAllPhotos();
         getListOfComments();
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    public void onResume() {
+        if (dataProviders.containsUseCase(ChannelDetailsUseCase.class)) {
+            ChannelDetailsUseCase channelDetailsUseCase = dataProviders.get(ChannelDetailsUseCase.class);
+            subscribeStatus.set(channelDetailsUseCase.isSubscribed() ? "SUBSCRIBE" : "UNSUBSCRIBE");
+        }
     }
 
     public CommentsRecyclerAdapter getCommentsRecyclerAdapter() {

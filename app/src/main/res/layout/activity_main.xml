@@ -55,6 +55,14 @@
             app:layout_constraintTop_toBottomOf="@id/video_preview_image"
             tools:text="CHANNEL LINK" />
 
+        <Button
+            android:id="@id/subscribe_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.subscribeStatus}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/channel_link" />
+
         <TextView
             android:id="@+id/channel_name"
             android:layout_width="wrap_content"
