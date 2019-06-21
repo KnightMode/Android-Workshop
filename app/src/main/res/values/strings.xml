@@ -7,4 +7,6 @@
     <string name="channel_details_page">CHANNEL DETAILS PAGE</string>
     <string name="sample_comment">Sample Comment</string>
     <string name="comments_section">COMMENTS SECTION</string>
+    <string name="post_your_comments">POST YOUR COMMENTS</string>
+    <string name="post_comment">POST COMMENT</string>
 </resources>

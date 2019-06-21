@@ -99,9 +99,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adapter="@{viewModel.commentsRecyclerAdapter}"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/comments_title" />
+
+        <TextView
+            android:id="@+id/post_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:text="@string/post_your_comments"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view" />
+
+        <EditText
+            android:id="@+id/comments_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top_standard"
+            android:onTextChanged="@{(text, start, before, count)->viewModel.setUserComment(text)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/post_comments" />
+
+        <Button
+            android:id="@+id/post_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:onClick="@{()->viewModel.postUserComment()}"
+            android:text="@string/post_comment"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/comments_box" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>
