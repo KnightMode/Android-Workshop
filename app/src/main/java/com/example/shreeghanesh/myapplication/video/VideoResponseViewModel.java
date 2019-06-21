@@ -11,6 +11,7 @@ import com.example.shreeghanesh.myapplication.basecomponents.NavigationStates;
 import com.example.shreeghanesh.myapplication.channel.ChannelActivity;
 import com.example.shreeghanesh.myapplication.channel.ChannelDetailsUseCase;
 import com.example.shreeghanesh.myapplication.networking.models.Comment;
+import com.example.shreeghanesh.myapplication.networking.models.UserCommentRequest;
 import com.example.shreeghanesh.myapplication.networking.models.VideoApiResponse;
 import com.example.shreeghanesh.myapplication.networking.networkModule.VideoModule;
 
@@ -87,7 +88,10 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
 
     public void postUserComment() {
         //TODO : Handle UserName Field
-        VideoModule.getVideoApiService().postComment("", userComments.get()).subscribe(this::onSuccess, this::onError);
+        VideoModule.getVideoApiService().postComment(new UserCommentRequest("SampleUser", userComments.get()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onSuccess, this::onError);
     }
 
     private void onSuccess(List<Comment> comments) {
