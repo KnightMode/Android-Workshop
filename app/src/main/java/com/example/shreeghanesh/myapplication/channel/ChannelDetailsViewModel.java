@@ -4,19 +4,14 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableField;
 
-import com.example.shreeghanesh.myapplication.basecomponents.ActivityNavigationUseCase;
 import com.example.shreeghanesh.myapplication.basecomponents.BaseLifeCycleViewModel;
 import com.example.shreeghanesh.myapplication.basecomponents.DataProviders;
-import com.example.shreeghanesh.myapplication.video.MainActivity;
-import com.example.shreeghanesh.myapplication.basecomponents.NavigationStates;
 
 public class ChannelDetailsViewModel extends BaseLifeCycleViewModel {
     public final ObservableField<String> channelName = new ObservableField<>();
-    public final ObservableField<String> buttonText = new ObservableField<>("SUBSCRIBE");
     public final ObservableField<String> buttonState = new ObservableField<>("SUBSCRIBE");
-    private boolean isButtonEnabled = true;
 
-    private final DataProviders dataProviders = new DataProviders();
+    private final DataProviders dataProviders = DataProviders.getDataProviderInstance();
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate() {
@@ -28,9 +23,11 @@ public class ChannelDetailsViewModel extends BaseLifeCycleViewModel {
     }
 
     public void onSubscribeButtonClick() {
-        isButtonEnabled = !isButtonEnabled;
-        buttonText.set(isButtonEnabled ? "SUBSCRIBE" : "UNSUBSCRIBE");
-        dataProviders.save(new ChannelDetailsUseCase(channelName.get(), "SUBSCRIBE".equals(buttonText.get())));
-        activityNavigationUseCaseMutableLiveData.postValue(new ActivityNavigationUseCase(MainActivity.class, NavigationStates.FINISH_ACTIVITY));
+        buttonState.set(buttonState.get().equals("SUBSCRIBE") ? "UNSUBSCRIBE" : "SUBSCRIBE");
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    public void onPause() {
+        dataProviders.save(new ChannelDetailsUseCase(channelName.get(), "SUBSCRIBE".equals(buttonState.get())));
     }
 }

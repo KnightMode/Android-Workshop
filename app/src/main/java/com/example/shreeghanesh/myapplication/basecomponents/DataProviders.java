@@ -4,7 +4,6 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.subjects.PublishSubject;
@@ -14,9 +13,16 @@ import io.reactivex.subjects.PublishSubject;
 public class DataProviders {
     ConcurrentMap<Class, UseCase> transientDataNew = new ConcurrentHashMap<>();
     PublishSubject<Class> dataSubjectNew = PublishSubject.create();
+    private static DataProviders dataProviders;
 
-    @Inject
-    public DataProviders() {
+    private DataProviders() {
+    }
+
+    public static DataProviders getDataProviderInstance() {
+        if (dataProviders == null) {
+            dataProviders = new DataProviders();
+        }
+        return dataProviders;
     }
 
     public void save(UseCase useCase) {
