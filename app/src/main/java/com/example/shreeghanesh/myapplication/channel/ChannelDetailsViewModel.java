@@ -15,10 +15,10 @@ public class ChannelDetailsViewModel extends BaseLifeCycleViewModel {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate() {
-        channelName.set("Some Channel Name");
         if (dataProviders.containsUseCase(ChannelDetailsUseCase.class)) {
             ChannelDetailsUseCase channelDetailsUseCase = dataProviders.get(ChannelDetailsUseCase.class);
             channelName.set(channelDetailsUseCase.getChannelName());
+            buttonState.set(channelDetailsUseCase.isSubscribed() ? "UNSUBSCRIBE" : "SUBSCRIBE");
         }
     }
 

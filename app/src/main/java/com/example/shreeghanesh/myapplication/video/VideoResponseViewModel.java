@@ -107,12 +107,21 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     }
 
     public void navigateToChannelPage() {
+        dataProviders.save(new ChannelDetailsUseCase(channelName.get(), isSubscribed()));
         activityNavigationUseCaseMutableLiveData.postValue(new ActivityNavigationUseCase(ChannelActivity.class, NavigationStates.START_ACTIVITY));
+    }
+
+    private boolean isSubscribed() {
+        return subscribeStatus.get().equals("UNSUBSCRIBE");
     }
 
     public void onClick() {
         isButtonEnabled = !isButtonEnabled;
         buttonText.set(isButtonEnabled ? "LIKE" : "UNLIKE");
+    }
+
+    public void onSubscribeButtonClicked() {
+        subscribeStatus.set(subscribeStatus.get().equals("SUBSCRIBE") ? "UNSUBSCRIBE" : "SUBSCRIBE");
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
