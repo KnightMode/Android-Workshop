@@ -99,7 +99,11 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     }
 
     private void onSuccess(List<Comment> comments) {
-        //TODO: Handle Success
+        List<CommentItemViewModel> commentItemViewModels = new ArrayList<>();
+        for (Comment comment : comments) {
+            commentItemViewModels.add(new CommentItemViewModel(comment.getComment()));
+        }
+        commentsRecyclerAdapter.setCommentItemViewModels(commentItemViewModels);
     }
 
     public void navigateToChannelPage() {
