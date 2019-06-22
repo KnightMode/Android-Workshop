@@ -1,8 +1,10 @@
 package com.example.shreeghanesh.myapplication.channel;
 
+import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.databinding.ObservableField;
+import android.support.annotation.NonNull;
 
 import com.example.shreeghanesh.myapplication.basecomponents.BaseLifeCycleViewModel;
 import com.example.shreeghanesh.myapplication.basecomponents.DataProviders;
@@ -12,6 +14,10 @@ public class ChannelDetailsViewModel extends BaseLifeCycleViewModel {
     public final ObservableField<String> buttonState = new ObservableField<>("SUBSCRIBE");
 
     private final DataProviders dataProviders = DataProviders.getDataProviderInstance();
+
+    public ChannelDetailsViewModel(@NonNull Application application) {
+        super(application);
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate() {

@@ -4,8 +4,8 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
-import com.example.shreeghanesh.myapplication.basecomponents.BaseActivity;
 import com.example.shreeghanesh.myapplication.R;
+import com.example.shreeghanesh.myapplication.basecomponents.BaseActivity;
 import com.example.shreeghanesh.myapplication.databinding.ActivityChannelScreenBinding;
 
 public class ChannelActivity extends BaseActivity {
