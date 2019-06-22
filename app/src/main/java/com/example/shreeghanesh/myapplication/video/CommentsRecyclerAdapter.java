@@ -34,6 +34,7 @@ public class CommentsRecyclerAdapter extends RecyclerView.Adapter<CommentsRecycl
     }
 
     public void setCommentItemViewModels(List<CommentItemViewModel> commentItemViewModels) {
+        this.commentItemViewModels.clear();
         this.commentItemViewModels.addAll(commentItemViewModels);
         notifyDataSetChanged();
     }
