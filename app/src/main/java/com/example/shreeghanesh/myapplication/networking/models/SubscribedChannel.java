@@ -1,16 +1,11 @@
 package com.example.shreeghanesh.myapplication.networking.models;
 
-import com.google.gson.annotations.SerializedName;
+public class SubscribedChannel {
 
-public class Channel {
-
-    @SerializedName("channel")
     private String channelName;
 
-    @SerializedName("channelSubscribers")
     private Integer channelSubscribers;
 
-    @SerializedName("channelOwner")
     private String channelOwner;
 
     public Integer getChannelSubscribers() {
