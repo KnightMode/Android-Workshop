@@ -4,12 +4,14 @@ import java.util.List;
 
 public class User {
     private String userName;
-    private List<Channel> subscribedChannels;
-    private List<LikedVideo> likedVideoList;
+    private List<SubscribedChannel> subscribedSubscribedChannels;
+    private List<VideoDetail> likedVideoDetails;
 
-    public User(String userId, String userName, List<Comment> comments, List<Channel> subscribedChannels) {
+
+    public User(String userName, List<SubscribedChannel> subscribedSubscribedChannels, List<VideoDetail> likedVideoDetails, List<Comment> commentsList) {
         this.userName = userName;
-        this.subscribedChannels = subscribedChannels;
+        this.subscribedSubscribedChannels = subscribedSubscribedChannels;
+        this.likedVideoDetails = likedVideoDetails;
     }
 
     public String getUserName() {
@@ -20,11 +22,19 @@ public class User {
         this.userName = userName;
     }
 
-    public List<Channel> getChannels() {
-        return subscribedChannels;
+    public List<SubscribedChannel> getSubscribedSubscribedChannels() {
+        return subscribedSubscribedChannels;
     }
 
-    public void setChannels(List<Channel> subscribedChannels) {
-        this.subscribedChannels = subscribedChannels;
+    public void setSubscribedSubscribedChannels(List<SubscribedChannel> subscribedSubscribedChannels) {
+        this.subscribedSubscribedChannels = subscribedSubscribedChannels;
+    }
+
+    public List<VideoDetail> getLikedVideoDetails() {
+        return likedVideoDetails;
+    }
+
+    public void setLikedVideoDetails(List<VideoDetail> likedVideoDetails) {
+        this.likedVideoDetails = likedVideoDetails;
     }
 }

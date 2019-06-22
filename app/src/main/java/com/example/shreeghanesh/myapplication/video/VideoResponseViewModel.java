@@ -1,8 +1,11 @@
 package com.example.shreeghanesh.myapplication.video;
 
+import android.app.Application;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.OnLifecycleEvent;
+import android.content.Context;
 import android.databinding.ObservableField;
+import android.support.annotation.NonNull;
 
 import com.example.shreeghanesh.myapplication.basecomponents.ActivityNavigationUseCase;
 import com.example.shreeghanesh.myapplication.basecomponents.BaseLifeCycleViewModel;
@@ -10,6 +13,7 @@ import com.example.shreeghanesh.myapplication.basecomponents.DataProviders;
 import com.example.shreeghanesh.myapplication.basecomponents.NavigationStates;
 import com.example.shreeghanesh.myapplication.channel.ChannelActivity;
 import com.example.shreeghanesh.myapplication.channel.ChannelDetailsUseCase;
+import com.example.shreeghanesh.myapplication.database.VideoDetailsRepository;
 import com.example.shreeghanesh.myapplication.networking.models.Comment;
 import com.example.shreeghanesh.myapplication.networking.models.UserCommentRequest;
 import com.example.shreeghanesh.myapplication.networking.models.VideoApiResponse;
@@ -34,9 +38,15 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
     private Disposable disposable;
     private DataProviders dataProviders = DataProviders.getDataProviderInstance();
     private CommentsRecyclerAdapter commentsRecyclerAdapter;
+    private VideoDetailsRepository videoDetailsRepository;
+
+    public VideoResponseViewModel(@NonNull Application application) {
+        super(application);
+    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     public void onCreate() {
+        videoDetailsRepository = new VideoDetailsRepository();
         commentsRecyclerAdapter = new CommentsRecyclerAdapter();
         getAllPhotos();
         getListOfComments();
@@ -84,6 +94,7 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
         imageUrl.set(videoApiResponse.getImage());
         views.set(videoApiResponse.getViews());
         channelName.set(videoApiResponse.getChannel());
+        cacheVideoDetail(videoApiResponse, getApplication().getApplicationContext());
     }
 
     public void setUserComment(CharSequence comment) {
@@ -129,5 +140,7 @@ public class VideoResponseViewModel extends BaseLifeCycleViewModel {
         disposable.dispose();
     }
 
-
+    public void cacheVideoDetail(VideoApiResponse videoApiResponse, Context context) {
+        videoDetailsRepository.cacheDetails(videoApiResponse, context);
+    }
 }
