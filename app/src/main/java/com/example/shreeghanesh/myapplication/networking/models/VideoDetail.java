@@ -1,16 +1,18 @@
 package com.example.shreeghanesh.myapplication.networking.models;
 
+import java.util.List;
+
 class VideoDetail {
     private String image;
     private String description;
-    private SubscribedChannel subscribedChannel;
     private Integer views;
+    private List<Comment> commentsList;
 
-    public VideoDetail(String image, String description, SubscribedChannel subscribedChannel, Integer views) {
+    public VideoDetail(String image, String description, Integer views, List<Comment> commentsList) {
         this.image = image;
         this.description = description;
-        this.subscribedChannel = subscribedChannel;
         this.views = views;
+        this.commentsList = commentsList;
     }
 
     public String getImage() {
@@ -29,19 +31,11 @@ class VideoDetail {
         this.description = description;
     }
 
-    public SubscribedChannel getSubscribedChannel() {
-        return subscribedChannel;
+    public List<Comment> getCommentsList() {
+        return commentsList;
     }
 
-    public void setSubscribedChannel(SubscribedChannel subscribedChannel) {
-        this.subscribedChannel = subscribedChannel;
-    }
-
-    public Integer getViews() {
-        return views;
-    }
-
-    public void setViews(Integer views) {
-        this.views = views;
+    public void setCommentsList(List<Comment> commentsList) {
+        this.commentsList = commentsList;
     }
 }
